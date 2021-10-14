@@ -1,0 +1,100 @@
+package com.industriesks.springboot.controller;
+
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.industriesks.springboot.models.Position;
+import com.industriesks.springboot.models.Request;
+import com.industriesks.springboot.models.Response;
+import com.industriesks.springboot.service.TService;
+
+@RestController
+@RequestMapping("/api")
+public class Controller {
+
+	@Autowired
+	private TService tservice;
+
+	@PostMapping("/topsecret")
+	public ResponseEntity<?> create(@RequestBody Request request) {
+
+		try {
+
+			Response response = new Response();
+
+			// ArrayList<Float> distances = new ArrayList();
+
+			float[] distances = new float[request.getSatellites().size()];
+
+			AtomicInteger index = new AtomicInteger();
+
+			request.getSatellites().stream()
+					.forEach(satelite -> distances[index.getAndIncrement()] = satelite.getDistance());
+
+			Position position = new Position();
+
+			float[] coordinates = tservice.getLocation(distances);
+
+			position.setX(coordinates[0]);
+			position.setY(coordinates[1]);
+
+			response.setPosition(position);
+
+			return new ResponseEntity<Response>(response, HttpStatus.CREATED);
+
+		} catch (Exception e) {
+			System.out.println("Prueba de envio");
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+	}
+
+	@GetMapping("/topsecret_split")
+	public ResponseEntity<?> topSecret(@RequestBody Request request) {
+
+		try {
+
+			Response response = new Response();
+
+			// ArrayList<Float> distances = new ArrayList();
+
+			float[] distances = new float[request.getSatellites().size()];
+
+			AtomicInteger index = new AtomicInteger();
+
+			request.getSatellites().stream()
+					.forEach(satelite -> distances[index.getAndIncrement()] = satelite.getDistance());
+
+			Position position = new Position();
+
+			float[] coordinates = tservice.getLocation(distances);
+
+			position.setX(coordinates[0]);
+			position.setY(coordinates[1]);
+
+			response.setPosition(position);
+
+			return new ResponseEntity<Response>(response, HttpStatus.CREATED);
+
+		} catch (Exception e) {
+			System.out.println("Prueba de envio");
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+	}
+
+}

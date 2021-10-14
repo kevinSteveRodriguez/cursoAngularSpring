@@ -1,0 +1,44 @@
+--------------------------------------
+--------------------------------------
+ANGULAR SPRING UNION
+--------------------------------------
+--------------------------------------
+
+
+-------------------
+INFORMACIÓN
+-------------------
+	- PIPE:Nos permite agregar mas operadores
+	- MAP:Operador que nos permite comvertir el tipo JSON dentro de la promesa y se convierte o se castea al tipo del Objeto // ej;Cliente
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------
+(Angular):MODULES
+---------------------------
+
+//HTTP client es la comunicacion con el servidor remoto a traves de peticiones HTTP con los verbos(get put..), con esto se puede utilizar en la clase service
+
+//En app.module.ts
+	->Se importa el //import { HttpClientModule } from '@angular/common/http'
+	-> Se agrega el //HttpClientModule, en imports:
+	
+//En cliente.Service.ts
+	->inicializar el HttpClient // 
+		- constructor(private http: HttpClient) { }
+	->Creamos el endPont con la variable correspondiente y Url // 
+		- private urlEndPoint: string = 'http://localhost:8080/api/clientes';
+	->Retornamos asignación: //
+		- return this.http.get<Cliente[]>(this.urlEndPoint);
+
+//Se impora el operador Map para castear la promesa en el return
+	//Esto tradice como una funcion, ej:
+		->return this.http.get(this.urlEndPoint).pipe(
+      map(funcion(Response) { Response as Cliente[]})
+	
+	
+//Con tyeScript Usamos el arrow funcion
+	-> return this.http.get(this.urlEndPoint).pipe(
+      map((Response) => Response as Cliente[])
+    );

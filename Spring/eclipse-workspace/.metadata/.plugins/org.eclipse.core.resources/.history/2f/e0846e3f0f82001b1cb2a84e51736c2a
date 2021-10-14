@@ -1,0 +1,9 @@
+package com.industriesks.springboot.models;
+
+public class Response {
+	
+	Position position;
+	
+	private String message;
+
+}

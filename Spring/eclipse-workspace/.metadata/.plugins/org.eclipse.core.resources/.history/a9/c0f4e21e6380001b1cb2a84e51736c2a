@@ -1,0 +1,5 @@
+package com.industriesks.springboot.backend.apirest;
+
+public class Greeting {
+
+}

@@ -1,0 +1,422 @@
+--------------------------------------
+--------------------------------------
+SPRING (JAVA)
+--------------------------------------
+--------------------------------------
+
+-------------------
+INFORMACIÓN
+-------------------
+
+- REST: Transferencia de Estado Representacional, es un protocolo entre cliente, servidor sin estado(stateless), poder integrar aplicaciones untilizando Json
+- EndPoint: Es una uri(URL) que envia una petición http al servidor con diferentes metodos,
+- POST: Insertar o generar nuevo Registro
+- GET: Para poder obtener o leer datos
+- PUT: Para editar datos existentes  
+- DELETE: para eliminat los datos.
+- JPA: Api de persistencia de JAVA
+- CrudRepository = Trae los metodos que hereda Spring, save, List, etc
+- Cors = Intercambio de recursos de origen Cruzado, Permite a los navegadores movernos, enviar y recibir datos restringidos, String imagenes, Scripts, desde un dominio a otro diferentes
+		 que ha hecho la petición. //Mecanismo de Control de acceso HTTP para acceder a siertos recursos en un servidor Backend.
+
+---------------------------------------------------------------------------------------------------------------------------------
+INFORMACIÓN ANOTACIONES
+
+- @SpringBootApplication: Es la mas importante debido a que tiene otras app
+	//Esta fomrmada por 3 anotaciones
+		-@SpringBootConfiguration: La configuracion de Spring boot automatica que se puede sobreescribir en el aplication.properties
+		-@EnableAutoConfiguration: Habilitar la autoconfiguración.
+		-@Entity = para identificar la clase como entidad
+		-@Table(name = "clientes") = Se identifica el nombre de la tabla
+		-@Id = Agregar para identidicar la llave principal
+		-@GeneratedValue(strategy) = Estrategia de generacion, se indica el atributo
+		-@Column = Para indicar que van hacer columnas
+		-@Temporal = Indicar transformacion en la base de datos
+		-@Autowired = Para realizar la inyeccion de dependencias
+		-@Transactional
+		-@Service = Indica que quedara guardado en el contexto de Spring de que es un servicio
+		-@RestController = Es un api rest se anota con la siguente
+		-@RequestMapping = Se usa para agregar la direccion URL del endPoint
+		-@GetMapping = Se sa para generar el entPoint del metodo, es una petición del tipo get
+		-@CrossOrigin(origins = {}) = Se agrega atributo en donde se especifica el dominio en Origins o ip del servidor y soporta un arreglo
+		-@PathVariable = se pasa por id, o parametro
+		-@PostMapping = Se implementa el verbo para metodo crear.
+		-@PrePersist = Se usa para indicar que se debe llamar el metodo antes de que la entidad se inserte(Persista en la BD)
+		-@ResponseStatus = Se usa para devolver el codigo del status deseado.
+		-@PutMapping = Anotacion para actualizar un metodo
+		-@DeleteMapping = Anotacion usada para eliminar en un metodo
+
+---------------------------
+INSTALACION HERRAMIENTAS:
+---------------------------
+
+//Instalacion del JDK de java
+//Instalar IDE Eclipse
+//Instalar plugin Spring Tools
+	- Help -> EclipseMarketplace -> Spring Tools 4 (Plugin) -> Instalar y aceptar todos los campos
+//Iniciar servicios
+	
+ 
+---------------------------
+INSTALACION ECLIPSE:
+---------------------------
+//https://www.eclipse.org/downloads/
+	-Dirigirse a Download Packages
+	-Descargar eclipse EE
+	
+//Seleccionar Workspace deseado
+
+//Instalar Plugin de Spring
+	- help->eclipse marketplace-> buscar Spring tools (ultima version)
+	
+---------------------------
+CREAR PROYECTO:
+---------------------------
+
+- createProyect->Spring boot->Spring Starter Proyect
+	-Agregar Nombre
+	-Selecciona maven /Gradle (dependiendo)
+	-Se deja en (JAR) ya que se va a utilizar en app API REST // Si se quisiera utilizar una app JSP con vistas de deja el (WAR)
+---------------------------------------------------------------------------------------------------------------------------------
+
+//Configurar los atributos propios del proyecto
+	-Group: com.industriesks.springboot.backend.apirest
+			(dominio - nomEmpresa - nombreProtecto) //nombreProtecto Separado por punto
+	-Artifact: spring-boot-backend-apirest // Corresponde al mismo nombre del proyecto
+	-Package: com.industriesks.springboot.backend.apirest // Se deja el mismo predeterminado que el id	
+---------------------------------------------------------------------------------------------------------------------------------
+
+//Wizzard para seleccionar las dependencias de Spring tools
+	-web->marcar Spring Web // incluye api y anotaciones para crear los controladores RESTFULL
+	-SQL->marcar Spring Data JPA
+	
+	-Developer Tools
+		-Seleccionar Spring Boot DevTools //Dependencia que permite que cualquier cambio que se haga en el codigo de las clases se refresque el servior y haga el deploy con los cambios
+
+-FINISH //Esperar a que se genere la extructura completa.
+
+---------------------------
+ARQUITECTURA DEL PROYECTO:
+---------------------------
+
+- pom.xml:Se tiene todas las dependencias, estructura del proyecto
+- resources->application.properties: Archivo Principal de Configuación
+- Clase principal: SpringBootBackendApirestApplication // Es el arranque 
+
+---------------------------
+GENERAR DATASOURCE:
+---------------------------		
+-application.properties
+	-//spring.datasource.url=jdbc:mysql://localhost/db_springboot_backend //Se crea la Url con Host de acceso y nombre de la Base de datos
+	-//spring.datasource.username=root // Se agrega el usuario de la base de datos
+	-//spring.datasource.password=sasa // Se agrega la contraseña de la base de datos
+	-//spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver // Se trae el nombre del driver del gestor de BASE DE DATOS
+	-//spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect// Dialecto para JPA, crea de forma automatica las tablas de la base de datos
+	-//spring.jpa.hibernate.ddl-auto=create-drop// Funciona cuando se levanta o se baja el Servidor
+	-//logging.level.org.hibernate.SQL=debug//Configuración para mostrar las consultas SQL nativas que se generan por debajo
+	
+---------------------------
+INSTALAR MYSQL:
+---------------------------
+
+//Ir a la pagina de descarga
+	-https://dev.mysql.com/downloads/
+	->MySQL Community Server
+	->Go to Dowload page
+	->Descargar Version Completa
+	->No thanks, just start my download.
+	
+//Pasos para instalar:
+	->Custom
+	->MySQL server //Seleccionarlo
+	->Applications->MysqlWorkbench
+	->Siguiente/Next
+
+//Clave instalación Mysql
+	-admin123
+	
+//WorkBench = Interfaz grafica para administrar las bases de datos, diseñar, crear esquemas etc	
+
+---------------------------
+CREAR LA CLASE ENTITY:
+---------------------------
+//Persistencia, los datos del cliente por parte del servidor
+//Dentro del package Principal se crea el modelo.
+		->com.industriesks.springboot.backend.apirest(.models.entity) //Se crea el models entity
+		->Crear la Clase cliente (Pojo o VO)
+		
+//Se implementa clase de (java io) al trabajar con Spring se guarde dentro de los atriburos de la sesion 
+		->public class Cliente implements Serializable
+		
+//Se agrega el serial id Defaul
+		->private static final long serialVersionUID = 1L; // Es requerido cuando se implementa el seralizable
+
+//Marcar la clase para identificarla como entity //Importados del paquete -> import javax.persistence
+
+		->@Entity
+		->@Table(name = "clientes") // Agregar Nombre de la tabla
+		->@GeneratedValue(strategy = GenerationType.IDENTITY ) //IDENTITY: Es cuando se trabaja con las llaves o ID se generan de forma autoincremental 
+															   //SEQUENCE: cuando se trabaja con oracle o Postgre
+		->@Column
+		
+//Ejecutar el proyecto para crear el map en la base de datos, en el archivo de application.properties nos muestra que se creara; 
+	-spring.jpa.hibernate.ddl-auto=create-drop
+	
+
+---------------------------
+CREAR LA CLASE REPOSITORY:
+---------------------------
+
+//Acceder y realizar Operaciones en la base de datos conocido como la clase DAO
+
+-Crear package para el DAO
+	->Ponerse en el package raiz (com.industriesks.springboot.backend.apirest) -> Click derecho y Crear el models.dao
+	
+-Creamos una interfaz
+	->IClienteDao
+	->Estendemos CrudRepository<T, ID> //Donde T es el nombre de la clase entity que esta asociado ej (Cliente)
+										//Donte ID es el tipo de dato del nombre del ID
+										
+---------------------------
+CREAR LA CLASE SERVICE:
+---------------------------
+-Crear package para el Service
+	->Ponerse en el package raiz (com.industriesks.springboot.backend.apirest) -> Click derecho y Crear el models.services
+
+-Creamos una interfaz
+	->IClienteService //Se le da un contrato de implementacion, o metodos del Crud
+	->Creamos metodo para listar la entidad Cliente
+	
+-Creamos la clase services (ClienteServiceImpl) Implementando la interfaz IClienteService y sus metodos correspondientes
+-Aplicamos 
+	->@Autowired IClienteDao clienteDao;//para realizar la inyeccion de dependencias desde el dao y creamos el respecivo objeto.
+	
+-En el metodo findAll retornamos el objeto con el metodo y casteamos debido a que es un iterable
+	
+---------------------------
+CREAR LA CLASE API REST:
+---------------------------
+-Crear package para el Service
+	->Ponerse en el package raiz (com.industriesks.springboot.backend.apirest) -> Click derecho y Crear el .controllers
+	
+-Creamos la clase 
+	->ClienteRestController
+	->Agregamos la anotacion @RestController
+	->Agregamos nuestro end point con @RequestMapping
+	
+---------------------------
+INGRESAR DATOS DE PRUEBA:
+---------------------------
+//Ir a recursos y añadir archivo
+	->src/main/resources
+	->Crear un SQLFILE // Con nombre import.sql
+	-> // Generar los datos de registro
+	
+/* Populate tabla clientes */
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES('Andrés', 'Guzmán', 'profesor@bolsadeideas.com', '2018-01-01');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES('Mr. John', 'Doe', 'john.doe@gmail.com', '2018-01-02');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES('Linus', 'Torvalds', 'linus.torvalds@gmail.com', '2018-01-03');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES('Rasmus', 'Lerdorf', 'rasmus.lerdorf@gmail.com', '2018-01-04');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES('Erich', 'Gamma', 'erich.gamma@gmail.com', '2018-02-01');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES('Richard', 'Helm', 'richard.helm@gmail.com', '2018-02-10');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES('Ralph', 'Johnson', 'ralph.johnson@gmail.com', '2018-02-18');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES('John', 'Vlissides', 'john.vlissides@gmail.com', '2018-02-28');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES('Dr. James', 'Gosling', 'james.gosling@gmail.com', '2018-03-03');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES('Magma', 'Lee', 'magma.lee@gmail.com', '2018-03-04');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES('Tornado', 'Roe', 'tornado.roe@gmail.com', '2018-03-05');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES('Jade', 'Doe', 'jane.doe@gmail.com', '2018-03-06');
+
+---------------------------
+CONFIGURAR Cors:
+---------------------------
+
+//El primer paso es confirgurar Cors en el servidor backend
+
+//Ingresar al controlador ej: ClienteRestController
+	->Agregar anotacion @CrossOrigin(origins = {"http://localhost:4200"})) //Esta da acceso al servidor de Angular (direccion) // para que pueda enviar y recibir datos
+	
+
+---------------------------
+IMPLEMENTANDO CRUD:
+---------------------------
+//En la interfaz del servicio ingresar el metodo para guardar
+	->IClienteService
+		- Ingresamos los metodos:
+			public Cliente findById(Long id);
+			public Cliente save(Cliente cliente);
+			public void delete(Long id);
+			
+//Implementamos los metodos en el ClienteServiceImpl
+	-Aplicamos las anotaciones @Transactional(readOnly = true) para los ID
+	-Aplicamos las anotaciones @Transactional para los demas metodos
+	
+//Para el metodo buscar por id podemos retornar el metodo del objeto y se filtra con orElse(null) para 
+	->return clienteDao.findById(id).orElse(null)
+	
+---------------------------
+IMPLEMENTANDO METODOS API REST:
+---------------------------
+
+//Ingresamos en la clase ClienteRestController
+
+//Creamos el metodo CONSULTA POR ID
+
+	->@GetMapping("/clientes/{id}")
+	public Cliente show(@PathVariable Long id) {
+		return clienteService.findById(id);
+	}
+--------------------------------------------------------------------------------------------------------------------
+	
+//Creamos metodo CREAR
+
+	@PostMapping("/clientes")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Cliente create(@RequestBody Cliente cliente) {
+		return clienteService.save(cliente);
+	}
+//@ResponseStatus(HttpStatus.CREATED) = Nos devuelve el codigo de status con la que se ejecuta el metodo // Se retorna un 201 para indicar que se ha creado
+//traemos la etiqueta @RequestBody para la traida en formato JSON, se envia el cuerpo en formato json para que el objeto clienteService guarde respectivamente
+
+//Retorna el cliente creado en la base de datos
+
+-----------------------------------------------
+//Creamos el Prepersist para el create At se logre guardar en la base de datos
+
+	@PrePersist
+	public void prePersist() {
+		createAt = new Date();
+	}	
+
+--------------------------------------------------------------------------------------------------------------------
+
+//Creamos metodo MODIFICAR o ACTUALIZAR
+
+	@PutMapping("/clientes/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Cliente Update(@RequestBody Cliente cliente, @PathVariable Long id) {
+
+		Cliente clienteActual = clienteService.findById(id);
+		clienteActual.setApellido(cliente.getApellido());
+		clienteActual.setNombre(cliente.getNombre());
+		clienteActual.setEmail(cliente.getEmail());
+
+		return clienteService.save(clienteActual);
+	}
+
+
+//Usamos la anotacion para llamar por ID, creamos el request body que sera el parametro que se le envia ademas llamamos el id
+//Creamos un objeto de cliente y el objeto clienteService asignando el id, realizamos el envio de parametros a actualizar y retornamos el objeto clienteService
+	pasando el objeto a actualizar(clienteActual)
+	
+--------------------------------------------------------------------------------------------------------------------
+	
+//Creamos metodo ELIMINAR
+
+	@DeleteMapping("/clientes/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable Long id) {
+		clienteService.delete(id);
+	}
+
+//LLamamos el ID en la anotación y retornamos objeto con delete y el parametro. 
+
+
+---------------------------
+PROBANDO METODOS API REST POSTMAN:
+---------------------------
+
+//Listar Clientes
+
+Metodo //GET
+http://localhost:8080/api/clientes/
+
+---------------------------------------------
+//Listar Clientes por ID
+Metodo //GET
+http://localhost:8080/api/clientes/2
+
+---------------------------------------------
+//Crear Clientes
+Metodo //POST
+http://localhost:8080/api/clientes
+
+//Configurar Postman
+	->Body->raw->JSON
+
+   {
+    "nombre": "Bilbo",
+    "apellido": "Baggins",
+    "email": "Bilbo.Baggins@gmail.com"
+   }
+   
+---------------------------------------------
+//Modificar Clientes por ID
+Metodo //PUT
+http://localhost:8080/api/clientes/2
+
+//Configurar Postman
+	->Body->raw->JSON
+
+{
+    "nombre": "Señor. John",
+    "apellido": "Doe Doe",
+    "email": "john.doe@gmail.com"
+}
+
+---------------------------------------------
+//Eliminar Clientes por ID
+Metodo //DELETE
+http://localhost:8080/api/clientes/5
+
+
+--------------------------------------------------------------
+--------------------------------------------------------------
+MANEJO DE ERRORES
+--------------------------------------------------------------
+
+Metodo handler show (obtener por id)
+
+//Spring contiene una clase que propne manejar mensajes de error y poder pasar el objeto y la case entity a la respuesta al responseBody
+
+//Se usa la clase ResponseEntity<(tipo de dato)> // como es generic se agrega un ? para cualquier tipo de error, o un map de objetos
+
+/Se agrega un objeto cliente asignando el llamado clienteService por el id y eso lo pasamos al responseEntity
+/Retornamos el response entity con un new y agregamos los 2 parametros, el objeto Cliente y el estatus
+/un tipo map almacena objetos o valores asociados a un nombre
+
+//asocia a pares de nombres(String) con sus valores (Object), 
+//Map es la interfaz, HashMap es la implementacion
+-Map<String, Object> response = new HashMap<>();
+
+//data acces Spring para manejar errores de Sql, conexiones, sintaxis (DataAccessException)
+
+
+
+    @GetMapping("clientes/{id}")
+    public ResponseEntity<?> show(@PathVariable Long id) {
+        Cliente cliente = null;
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            cliente = clienteService.findById(id);
+
+        }catch (DataAccessException e){
+            response.put("Mensaje","Error al realizar la consulta en la base de datos");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        if (cliente == null){
+            response.put("Mensaje","El cliente con el ID: ".concat(id.toString().concat("No existe en la base de datos!")));
+            return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Cliente>(cliente , HttpStatus.OK);
+    }   
+
+
+--------------------------------------------------------------
+
+Metodo handler show (Crear)
+	
+	
+	

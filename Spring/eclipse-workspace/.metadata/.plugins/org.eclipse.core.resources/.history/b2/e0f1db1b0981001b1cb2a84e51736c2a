@@ -1,0 +1,5 @@
+package com.industriesks.springboot.service;
+
+public class TService {
+
+}

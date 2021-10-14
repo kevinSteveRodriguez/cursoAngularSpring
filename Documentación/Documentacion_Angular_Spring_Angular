@@ -1,0 +1,668 @@
+--------------------------------------
+--------------------------------------
+ANGULAR
+--------------------------------------
+--------------------------------------
+
+-------------------
+INFORMACIÓN
+-------------------
+- TYPESCRIPT: Es el lenguaje con el que se escribe el codigo en Angular
+			Es un javascript de un superconjunto del javascript orientado a objetos
+			Desarrollado por microsoft
+
+- NPM: Node Package Manager
+- CLI COMMANDS: se ve todo el paquete de comandos de angular
+- Angular contiene un servidor embebido
+- app.component: Es el principal del la aplicación   
+- en cada clase, existe su nombre y un decorador en la parte de arriba como Spring ej: 
+		@Component
+			selector: Corresponde a una etiqueta HTML //Se puede incluir en otros componentes, como principal se debe incluir en el index.html Se le conoce como embeber
+			templateUrl: Vista del contenido HTML que esta asociado a esa misma clase
+			styleUrls: Seran las hojas de estilos
+- {{}}: Se Usa para interpolar(Es para que imprima en la respuesta del navegador) variables
+-Directorios:
+		e2e: Contiene las herrramientas necesarias para realizar pruebas unitarias todo lo que es testing
+		node_modules: Se encuentran las librerias y dependencias de proyectos
+		src: Contiene todo el codigo fuente de la aplicación
+		angular.json: Es el archivo principal de configuracion de proyecto en ello se ve el nombre del proyecto como objeto
+		main.ts: Inicial el AppModule
+		package.json: Se encuentran a todas las dependencias, como el pom.xml en java  contiene el nombre de la aplicación
+		
+		
+-Ignorar el node_modules en git y si se desea instalar de nuevo escribir npm install
+-Directorio SRC:
+			
+		styles.css: es para agregar los estilos de forma global en el proyecto
+		app.component.css: Todos los estilos, esclusivos del componente
+		app.component.html: Plantilla o vista que responde al componente que contiene basicamente el html
+		app.component.spec.ts: Sirve como prueba unitaria.
+		app.component.ts: Representa una parte de la aplicacion web, basicamente seria un controlador en Spring
+		app.module: Es el repositorio donde se registran los componentes, pipes, clase de servicios, se importan los diferentes modulos Contenedor
+		
+
+-Cada componente debe de estar dentro de un directorio
+
+		- una clase se compone de ej:
+		//Las importación 
+		import { Component } from '@angular/core';
+		
+		//es una anotacion de lo que representa 		
+		@Component({
+			
+		})
+		
+		// nombre de la clase
+		export class HeaderComponent{
+
+        }
+		La clase siempre tendra la anotacion
+		
+- OnInit: Es una interfaz para manejar el ciclo de vida el evento con el que se inicializa el componente, este envento se inicia cuando se carga el componente
+- Contructor: Es el que construye un objeto
+- SINCRONO: Esta sincronizado, basicamente los datos estan quemados.
+- ASINCRONO: Es la respuesta del servidor en los datos manejado en tiempo real. Reactivo
+- OBSERVABLE: Es un patron de diseño en donde se tiene un sujeto y los observadores que estan atentos a cualquier posible cambio en el sujeto
+- CODIGOS PARA RE INSTALAR PAQUETE (node_modules)
+	rm -rf node_modules
+    npm cache clean --force
+-[(ngModel)] = Es una directiva que va a poblear con los datos del formulario al atributo mediante un objeto
+-[(ngModel)] = Es una directiva que encarga de hacer un bind de los valores mapeados con el ngModel de los campos.
+
+
+
+-----------------------
+INSTALACION:
+-----------------------
+Instalar NodeJs 
+
+- https://nodejs.org/es/
+//Se recomienda la version recomendada
+
+//Revisar version en el cmd
+- node -v
+- npm -v
+
+-----------------------
+Instalar TypeScript
+
+- https://www.typescriptlang.org/
+
+//El -g significa instalacion Global en cmd
+- npm install -g typescript
+
+//Revisar Instalación
+- tsc -v
+
+-----------------------
+Instalar Angular
+
+- https://angular.io/
+
+//Tener nodeJs Instalado previamente
+
+-npm install -g @angular/cli
+//Revisar Version instalada
+- ng version
+-----------------------
+
+-----------------------
+CREACION DE PROYECTO:
+-----------------------
+
+//Dirigirse a un directorio
+//Instalar Proyecto
+- ng new (my-app)
+
+-----------------------
+EJECUTAR APLICACION:
+-----------------------
+
+//Dirigirse al directorio de Angular donde esta el (Proyecto)
+//Para ejecutar en el navegador
+- ng serve --open
+//Atajo  
+- ng serve -o
+
+-----------------------
+INTEGRAR BOOSTRAP:
+-----------------------
+
+//Pagina oficial de Boostrap
+//en la seccion de Dowload(BootstrapCDN) copiar el codigo 
+//Dejar las etiquetas javascript debajo de la etiqueta Body
+
+----------------------------------------------------------------------------------
+Boostrap integrado en proyecto de forma local
+
+//guardar el boostrap. min
+	- https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css
+
+//guardar el Jquery
+	- https://code.jquery.com/jquery-3.4.1.slim.min.js
+	
+//guardar el popper
+	- https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js
+	
+//guardar el boostrap.min js
+	- https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js
+	
+//Crear 2 directorios en Assets, uno de JS y otro de CSS y pasar los archivos al directorio correspondiente
+
+//Eliminar el integriti en el index.html
+
+//se direcciona la carpeta de assets
+ //<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	- <link rel="stylesheet" href="assets/css/bootstrap.min.css"> 
+    - <script src="assets/js/jquery-3.4.1.slim.min.js"></script>
+    - <script src="assets/js/popper.min.js"></script>
+    - <script src="assets/js/bootstrap.min.js"></script>
+
+//En en algular.json agregar en los arreglos el css y los js
+//Se elimina y los javaScript del body  <link rel="stylesheet" href="assets/css/bootstrap.min.css"> del html
+//Se recompila
+
+----------------------------------------------------------------------------------
+
+//Instalar Boostrap con NPM
+//Forma mas simple
+- npm install bootstrap
+
+-----------------------
+CREAR CLASE:
+-----------------------
+
+//Generar solo una clase
+	-ng g class (nombre que se le dara)
+	
+-----------------------
+CREAR COMPONENTE:
+-----------------------
+
+//Se crea la carpeta del componente con respectivo nombre
+//Se agrega el archivo TS clase del componente
+//Se instancia la clase creada en el app.module.ts
+	ej: - import { HeaderComponent } from './header/header.component';
+	- declarations: [
+    AppComponent,
+    HeaderComponent
+  ],
+  
+//Creando la clase componente con Angular CLI desde consola
+	//Dirigirse a la carpeta (src/app) en consola
+	//Crear carpeta con 
+	- mkdir footer
+	//Ingresar a la carpeta (src/app/footer)
+	//Generar la clase
+	- ng generate class footer.component
+	//Se elimina el punto en la clase porque solo va en el archivo
+
+//CREACION DEL COMPONENTE DE FORMA AUTOMATICA
+	- ng generate component(nombre del componente)
+	- ng g c (nombre del componente)
+	
+-----------------------
+DIRECTIVA *ngFor:
+-----------------------
+
+//La directiva Funciona para iterar.
+// ej de sintaxis *ngFor="let curso of listaCurso" se declara la variable seguido de el objeto a recorrer para despues imprimir la variable interpolando {{curso}}
+
+-----------------------
+DIRECTIVA *ngIf:
+-----------------------
+
+//Sirve para evaluar una expresion de acuerdo si es vefrdadero o falso, ocultar un contenido
+//Se crea un boton evaluando la expresion del objeto creado desde el TS
+	- EJ: <button type="button" (click)="habilitar = (habilitar == true)? false: true;"
+          class="btn btn-primary my-3">{{habilitar == true? 'Ocultar':'Mostrar'}}</button>
+//En el listado se realiza la expresion:
+	- <ul class="list-group" *ngIf="habilitar == true">
+        <li class="list-group-item" *ngFor="let curso of listaCurso">{{curso}}</li>
+    </ul>
+	
+//O se crea el metodo en el TS y se manda la funcion (Nombre) al click del html
+	- setHabilitar(): void {
+      this.habilitar = (this.habilitar == true) ? false : true;
+      }
+	- <button type="button" (click)="setHabilitar()"
+	
+
+-----------------------------------------------
+INYECCION DE DEPENDENCIA (para los servicios):
+-----------------------------------------------
+
+//Dirigirse a la carpeta clientes y en consola ingresar
+	-ng g service (nombre que se dara)
+	
+//Para inyectar se debe invocar en el metodo constructor
+	ej:   constructor(private clienteService: ClienteService) { } Se define el atributo y se inyecta el valor
+	
+//en el (app module) debe de ir el nombre de la clase de servicio en providers esto permite inyectar en varios componentes de la aplicación.
+	ej:   providers: [ClienteService],
+		
+	
+			
+-----------------------
+API OBSERVABLE:
+-----------------------
+
+//Es asincrono, peticiones http, api rest, donde esperamos respuesta del Back-end.
+//Flujo de Datos, cuando se suscribe puede estar escuchando o esperar que se emitan elementos, o un solo dato
+//Se ejecuta en su propio proceso
+//mientras no se ejecute el metodo Subscribe no se ejecuta al flujo reactivo.
+//Operadores como el map, se puede combertir objetos de tipo ej: usuario
+//Operador filter sirve para filtrar el flujo
+//Operador Retry sirve para volver a intentar ejecutar.
+//catch error, se maneja con la execpción. 
+
+
+//Observable es el que mantendra actualizado los datos de entrada 
+ej: getClientes(): Observable<Cliente[]> { //Se crea el metodo, se implementa el API obserbable seguido del objeto
+    return of(CLIENTES);
+  }
+
+//Despues se suscribe los datos en la clase deseada.
+ej:clientes: Cliente[];
+
+  constructor(private clienteService: ClienteService) { }
+
+  ngOnInit(): void {
+    this.clienteService.getClientes().subscribe(
+      clientes => this.clientes = clientes
+    );
+  }
+
+//Se pasa la funcion anonima
+//Se importa el Observable en la clase cliente.service.ts que representa el flujo reactivo
+//Todo se importa desde el paquete rxjs
+//rxjs: Es una libraria de JavaScript que permite ejecutar programación reactiva y se trabaja con datos
+
+-----------------------
+RUTAS ANGULAR:
+-----------------------
+
+//Las url que se mapearan o asignar a los componentes
+	ej: componente directivas, clientes se deben mapear a una ruta Url.
+	
+//En el app.module.ts
+	-Se importa el routerModule, y el routes
+//Se crea una constante con las rutas que se van a especificar
+ - Ej:
+ 
+const routes: Routes = [
+  { path: '', redirectTo: '/clientes', pathMatch: 'full' },
+  { path: 'directivas', component: DirectivaComponent },
+  { path: 'clientes', component: ClientesComponent }
+];
+
+
+//Despues se envia la constante
+- Ej
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes)
+  ],
+  
+//En el app.component.html se agrega la etiqueta <router-outlet></router-outlet> lo cual es una directiva de angular para indicar donde se va a reenderizar
+y mostar el contenido de cada ruta que se seleccione
+
+
+//En el componenete Header se modifican las rutas agregando el routerLink
+	Ej: <a class="nav-link" routerLink="/directivas">Directivas</a>
+	
+//RouterLinkActive = "active" = cada ves que se seleccione una pagina se marcara como activa
+  
+
+-----------------------
+CREAR FORMULARIO:
+-----------------------
+
+//Creamos el componente en la consola clientes-app indicando dentro de la carpeta clientes y el nombre, agregamos el flat para indicar que se tiene que crear dentro de cliente
+->ng c clientes/form --flat
+
+//Esto se hace para crear un componente dentro de otro
+
+//Eliminamos el Spect y la hoja de estilos debido a que no se va a usar, y importamos forms
+	->import { FormsModule } from '@angular/forms' //Esto es registar un modulo para trabajar con formularios
+	->  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    RouterModule.forRoot(routes)
+  ],
+  
+  
+//Agregamos el [(ngModel)]="" en el input para mapear cada atributo cuando se envie el formulario pasara al metodo y guardara esos valores en el ngModel
+
+//Creamos el label para el nombre:
+	->            <div class="form-group row">
+                <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="">
+                </div>
+            </div>
+-------------------------------------------------------------------------------			
+//En a clase component importamos el modelo de cliente creado
+	-private cliente: Cliente = new Cliente();
+	
+//En el formulario agregamos el boton Crear y en el (Form) agregamos la directiva submit
+	-<form (ngSubmit) = "create()">
+	
+//Creamos el metodo create()
+  public create(): void {
+    console.log("clicked!");
+    console.log(this.cliente);
+  }
+  
+//Se crearan las rutas y links en el app.module
+//En la constante de las rutas agregamos el path clientes/form invocando el componente
+	const routes: Routes = [
+  { path: '', redirectTo: '/clientes', pathMatch: 'full' },
+  { path: 'directivas', component: DirectivaComponent },
+  { path: 'clientes', component: ClientesComponent },
+  { path: 'clientes/form', component: FormComponent }
+
+]
+-------------------------------------------------------------------------------
+//despues de eso agregamos el reouter link al boton dando valor en //clientes.component.html
+
+  <div class="my-2 text-left">
+            <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/clientes/form']">Crear
+                Cliente</button>
+        </div>	
+
+-------------------------------------------------------------------------------
+//Implementar el crear en la CLASE SERVICE
+
+//En la clase cliente.service.ts creamos una funcion crear
+-  create(cliente: Cliente): Observable<Cliente> {
+    return this.http.post<Cliente>(this.urlEndPoint, cliente, { headers: this.httpHeaders })
+  }
+  
+  -> creamos el parametro cliente que es el objeto que se espera, agregamos el observable que es el que va a esperar el envio,
+  ->Retornamos tipo Post, porque sera el que se va a agregar, de paso enviamos 3 parametros, la url, el objeto, y la cabecera.
+  
+//Creamos los headers para los http
+-   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
+
+//Importamos en el componente del formulario el servicio del cliente.
+-------------------------------------------------------------------------------
+//nos dirigimos a form.component.ts y importamos en el constructor.
+
+- constructor(private clienteService: ClienteService, private router: Router) { }
+//Importamos el servicio y el router creando los objetos para navegar
+
+//Creamos el metodo crear en el componente 
+
+-  public create(): void {
+    this.clienteService.create(this.cliente).subscribe(
+      response => this.router.navigate(['/clientes'])
+    )
+  }
+//llammos al objeto clienteService, invocamos el metodo, le pasamos el objeto cliente, y suscribimos, agregamos el response, llamando al router,navigate
+	y llamamos a la ruta que queremos que nos redireccione apenas se haga el proceso.
+		
+	
+-----------------------
+SWEET ALERT:
+-----------------------
+
+//Una libreria JS que permite agregar mensajes a los usuaros,
+
+
+Instalar:
+
+https://sweetalert2.github.io/#download
+
+//consola
+ - npm install sweetalert2 --save
+ 
+//importar en el css de angular.json
+	-"node_modules/sweetalert2/dist/sweetalert2.min.css"
+ 
+ 
+//Importar en el componente que se desea intanciar,
+	//importamos en el form.component.ts
+
+------------------------
+  public create(): void {
+    this.clienteService.create(this.cliente).subscribe(
+      response => this.router.navigate(['/clientes'])
+    )
+  }
+ 
+------------------------
+  public create(): void {
+    this.clienteService.create(this.cliente)
+    .subscribe(cliente =>{ 
+      this.router.navigate(['/clientes'])
+      Swal.fire('Nuevo Cliente',`Cliente ${cliente.nombre} creado con éxito!`)
+    }
+    )
+  }
+ 
+//retornamos el nuevo cliente creado y justo despues de redirigir se mostraria el mensaje que se creo, como es mas de una linea,
+	se agregan la {} llaves
+
+// llamamos el swal:
+	-Swal.fire('Nuevo Cliente',`Cliente ${cliente.nombre} creado con éxito!`) enviando parametros
+	
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+//Implementar el editar en la CLASE SERVICE
+
+
+  getCliente(id): Observable<Cliente>{
+    return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`)
+  }
+ 
+ //creamos el metodo con parametro id, que es lo que se va a pasar para consultar el cliente por el id,
+ el observable va hacer sobre el cliente esperando cualquier cambio, retornamos el cliente con url del empoint y asociamos el id interpoladamente
+ 
+----------------------------
+EN la clase form.componet
+//Importamos en el constructor el (private activatedRoute: ActivatedRoute)
+
+//Creamos metodo de cargar el cliente, pasano el activateRoute y cargando los parametros que se van a ejecutar, una vez suscribiendo
+tomamos el id como arreglo, validamos si es id y pasamos al servicio
+
+   cargarCliente(): void{
+    this.activatedRoute.params.subscribe(params =>{
+      let id = params['id']
+      if(id){
+        this.clienteService.getCliente(id).subscribe((cliente)=> this.cliente)
+      }
+    })
+  }
+  
+--------------------------------
+En app.modules
+
+//agregar ruta para el id
+
+const routes: Routes = [
+  { path: '', redirectTo: '/clientes', pathMatch: 'full' },
+  { path: 'directivas', component: DirectivaComponent },
+  { path: 'clientes', component: ClientesComponent },
+  { path: 'clientes/form', component: FormComponent },
+  { path: 'clientes/form/:id', component: FormComponent }
+
+]
+
+--------------------------------
+En el cliente.componet.html
+
+//agregamos el <th> o fila para el editar
+
+//agregamos el <td> o columna para crear el boton con la ruta:
+	
+	        <td>
+                 <button type="button" name="button" [routerLink]= "['/clientes/form',cliente.id]">editar</button>
+            </td>
+//agregamos 2 parametros para el routerLink la url, y el parametro del id
+
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+//Implementar el Update en el cliente.service
+
+
+//Agregamos un metodo que tenga como observable cliente, devolvemos el put de actualizar con url de endpoint, parametro de id, y cabecera
+  update(cliente: Cliente): Observable<Cliente>{
+    return this.http.put<Cliente>(`${this.urlEndPoint}/${cliente.id}`,cliente,{headers: this.httpHeaders})
+  }
+  
+  
+-------------------------------------------------
+
+//implementamos en el form.component creamos he implementamos el servicio
+
+
+  public update(): void{
+  
+  //enviamos objeto del cliente
+    this.clienteService.update(this.cliente)	
+
+	//Suscribimos y enviamos mensaje
+    .subscribe(cliente =>{
+      this.router.navigate(['/clientes'])
+      Swal.fire('Cliente Actualizado',`Cliente ${cliente.nombre} actualizado con éxito!`,'success')
+    })
+  }
+
+
+
+-------------------------------------------------
+
+//en form.component.html
+
+//agregamos validacion si se encuentra el cliente por id crear, si no actualizar.
+
+    <div class="form-group row ">
+        <button class="btn btn-primary " role="button " (click)='create()' *ngIf="!cliente.id else elseBlock">Crear</button>
+            <ng-template #elseBlock>
+                <button class="btn btn-primary " role="button " (click)='update()'>Editar</button>
+            </ng-template>
+    </div>  
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+//Implementar el delete en el cliente.service
+
+//Creamos el metodo pasando la url y id del servicio, junto con las cabeceras 
+  delete(id): Observable<Cliente>{
+    return this.http.delete<Cliente>(`${this.urlEndPoint}/${id}`,{headers: this.httpHeaders})
+  }
+
+-------------------------------------------------
+
+//En clientes.component
+
+//se lista todos los clietes que se encuentran,
+
+
+//agregamos un metodo delete y un mensaje de alerta en sweet alert de eliminar o borrar
+
+
+
+  delete(cliente: Cliente): void {
+    Swal.fire({
+      title: 'Esta seguro?',
+      text: `Seguro que desea elmiminar el cliente ${cliente.nombre} ${cliente.apellido}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.ClienteServices.delete(cliente.id).subscribe(
+          Response => {
+            this.clientes = this.clientes.filter(cli => cli !== cliente)
+            Swal.fire(
+              'Cliente eliminado!',
+              `Cliente ${cliente.nombre} eliminado con éxito`,
+              'success'
+            )
+          }
+        )
+      }
+    })
+  }
+  
+  
+//Insertamos el iyenctable ClienteServices en la condicional, confirmada, pasando como parametro el id y respectivo mensaje seet alert
+//agregamos un filter es un array que nos permite filtrar los elementos que deseamos segun los criterios y se devuelve un nuevo array
+	- this.clientes = this.clientes.filter(cli => cli !== cliente) del cliente, seleccionamos el nuevo cliente, agrgando la condición que si el cli 
+	es diferente del cuelte y se guarda.
+	
+	
+-------------------------------------------------
+
+//en clientes.component.html
+
+//Se agrega la fila Eliminar y Columnna con el boton eliminar llamando el metodo y enviando el parametro.
+    <td>
+        <button type="button" name="eliminar" (click)='delete(cliente)' class="btn btn-danger">Eliminar</button>
+    </td>
+
+
+-------------------------------------------------
+-------------------------------------------------	
+Solucionar layaout que se sale de proporcion cuando las listas son largas
+
+declaramos una posicion relativa a todo el html debido a que el footer esta en absoluta
+
+//agregamos
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+//en el app component agregamos clase container, y margenes y padding arriba y abajo para ajustar el diseño
+
+<app-header></app-header>
+<div class="container my-3 pb-5">
+    <router-outlet></router-outlet>
+</div>
+
+<app-footer></app-footer> 
+
+
+-------------------------------------------------
+-------------------------------------------------
+VALIDAR QUE EL LISTADO CLIENTE VENGA CON DATOS
+
+//Ingresamos a clientes.component ya que la lista se encuentra ahi y para validar la lista vacia un *ngIf en la misma tabla
+
+/si el objeto clientes viene vacio.length que es el largo, es menor a 0 no mostrar
+<table class="table table-bordered table-striped" *ngIf="clientes?.length > 0">
+
+//agregamos un div para mostrar un alert en caso de no encontrar.!
+
+/Si los clientes son extricatamente igual a 0 agregamos clase de boostrap indicando el respectivo mensaje
+ <div *ngIf="clientes?.length == 0" class="alert alert-info">
+     No hay registros en la base de datos.!
+ </div>
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+

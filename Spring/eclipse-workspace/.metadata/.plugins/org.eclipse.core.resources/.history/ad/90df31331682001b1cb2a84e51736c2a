@@ -1,0 +1,37 @@
+package com.industriesks.springboot.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class TService {
+    public float[] getLocation(float... distances) {
+
+        float[] sateliteKenobi = new float[] {-500f, -200f}; 
+        float[] sateliteSkywalker = new float[] {-100f, -100f};
+        float[] sateliteSolo = new float[] {500f, 100f};
+
+
+        float distancia1 = distances[0];
+        float distancia2 = distances[1];
+        float distancia3 = distances[2];
+
+        float distanciaEntreKenobiySkywalker = this.calcularNorma(new float[]{(sateliteSkywalker[0] - sateliteKenobi[0]), (sateliteSkywalker[1] - sateliteKenobi[1])});
+        float exx = ( sateliteSkywalker[0] - sateliteKenobi[0]) / distanciaEntreKenobiySkywalker;
+        float exy = (sateliteSkywalker[1] - sateliteKenobi[1]) / distanciaEntreKenobiySkywalker;
+        float[] ex = new float[]{exx, exy};
+        float i = ex[0] * (sateliteSolo[0] - sateliteKenobi[0]) + ex[1] * (sateliteSolo[1] - sateliteKenobi[1]);
+        float eyx = (sateliteSolo[0] - sateliteKenobi[0]) - i * ex[0];
+        float eyy = (sateliteSolo[1] - sateliteKenobi[1]) - i * ex[1];
+        float[] aux = new float[]{eyx, eyy};
+        float[] ey = new float[]{(aux[0] / this.calcularNorma(aux)), (aux[1] / this.calcularNorma(aux))} ;
+        float j = ey[0] * aux[0] + ey[1] * aux[1];
+        float x = (float) ((Math.pow(distancia1, 2) - (Math.pow(distancia2, 2)) + (Math.pow(distanciaEntreKenobiySkywalker, 2))) / (2 * distanciaEntreKenobiySkywalker));
+        float y = (float) ((Math.pow(distancia1, 2)) - (Math.pow(distancia3, 2) + (Math.pow(i, 2)) + (Math.pow(j, 2)))) / ((2 * j) - (i * x) / j);
+
+        return new float[] {x, y};
+    }
+
+    private float calcularNorma(float[] satelite) {
+        return (float) Math.sqrt((Math.pow(satelite[0], 2)) + (Math.pow(satelite[1], 2)));
+    }
+}
